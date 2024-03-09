@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #5e5d5d7a;
+        }
+
+        header {
+            position: relative;
+            background-color: #33333369;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 10px;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.5s;
+        }
+
+        .back-button:hover {
+            background-color: #555;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .photo {
+            position: relative;
+            width: 200px;
+            height: auto;
+            margin: 10px; /* Adjust spacing between photos */
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        .photo img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .photo:hover {
+            transform: scale(1.5); /* Adjust hover scaling */
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Photo Gallery</h1>
+        <button class="back-button" onclick="goBack()">Back</button> <!-- Back button -->
+    </header>
+
+    <div class="gallery">
+        <div class="photo"><img src="Images/WA001.jpg" alt="Photo 1"></div>
+        <div class="photo"><img src="Images/WA003.jpg" alt="Photo 2"></div>
+        <div class="photo"><img src="Images/WA004.jpg" alt="Photo 3"></div>
+        <div class="photo"><img src="Images/WA005.jpg" alt="Photo 4"></div>
+        <div class="photo"><img src="Images/WA006.jpg" alt="Photo 5"></div>
+        <div class="photo"><img src="Images/WA007.jpg" alt="Photo 6"></div>
+        <div class="photo"><img src="Images/WA008.jpg" alt="Photo 7"></div>
+        <div class="photo"><img src="Images/WA009.jpg" alt="Photo 8"></div>
+        <div class="photo"><img src="Images/WA0011.jpg" alt="Photo 9"></div>
+        <div class="photo"><img src="Images/WA0010.jpg" alt="Photo 10"></div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
