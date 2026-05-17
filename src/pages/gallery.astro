@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { photos } from "../data/photos";
+
+const title = "Gallery | Lovanto George";
+const description =
+  "Selected photography work by Lovanto George, presented as a supporting visual layer for the portfolio.";
+---
+
+<BaseLayout title={title} description={description} pageClass="gallery-page">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Lovanto George home">
+      <span class="brand-mark">LG</span>
+      <span class="brand-copy">
+        <strong>Lovanto George</strong>
+        <small>Gallery</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Gallery navigation">
+      <a href="/">Home</a>
+      <a href="/#work">Work</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section-pad gallery-hero" aria-labelledby="gallery-title">
+      <p class="eyebrow">Selected frames</p>
+      <h1 id="gallery-title">Photography as a quiet counterweight to the technical work.</h1>
+      <p>
+        A compact gallery from the original site, cleaned up with responsive layout, real navigation,
+        descriptive alt text, and a stronger visual rhythm.
+      </p>
+      <a class="button button-secondary" href="/">Return home</a>
+    </section>
+
+    <section class="section-pad gallery-wall" aria-label="Photography gallery">
+      {
+        photos.map((photo, index) => (
+          <figure class={index % 3 === 0 ? "wide-frame" : ""}>
+            <img src={photo.src} alt={photo.alt} loading={index < 2 ? "eager" : "lazy"} />
+            <figcaption>
+              <span>{photo.label}</span>
+              <small>Selected work</small>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </section>
+  </main>
+</BaseLayout>

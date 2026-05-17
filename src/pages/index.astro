@@ -1,0 +1,334 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { projects } from "../data/projects";
+import { photos } from "../data/photos";
+
+const previewPhotos = photos.slice(0, 4);
+const title = "Lovanto George | Portfolio";
+const description =
+  "Portfolio for Lovanto George, a developer who turns rough ideas into useful systems, local AI experiments, tooling, and visual work.";
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="site-header" id="top">
+    <a class="brand" href="/" aria-label="Lovanto George home">
+      <span class="brand-mark">LG</span>
+      <span class="brand-copy">
+        <strong>Lovanto George</strong>
+        <small>Signal Atelier</small>
+      </span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#work">Work</a>
+      <a href="#tools">Stack</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section-pad" aria-labelledby="hero-title">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">Portfolio / local AI / dev tooling / visual experiments</p>
+        <h1 id="hero-title">I build useful systems with a little signal noise left in.</h1>
+        <p class="hero-lede">
+          I am a developer who turns rough ideas into useful systems: local-first AI services,
+          Python tooling, small full-stack experiments, and visual work that makes projects feel alive.
+        </p>
+        <div class="hero-actions" aria-label="Portfolio actions">
+          <a class="button button-primary" href="#work">View featured work</a>
+          <a class="button button-secondary" href="mailto:lovantog@gmail.com">Start a conversation</a>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Current signal">
+        <div class="scan-card">
+          <span class="scan-label">Now building</span>
+          <strong>Tether</strong>
+          <p>Local-first AI infrastructure for streaming chat, tools, sessions, and personal connectors.</p>
+          <div class="signal-meter" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div class="orbit-card" aria-hidden="true">
+          <span>AI</span>
+          <span>CLI</span>
+          <span>UX</span>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section-pad split-section" id="about" aria-labelledby="about-title">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2 id="about-title">Computer science roots, builder mindset, creative edge.</h2>
+      </div>
+      <div class="copy-stack">
+        <p>
+          My work sits between software engineering, automation, and experimentation. I like building
+          tools that remove friction: local AI services, command-line utilities, small full-stack labs,
+          and project workflows that are practical enough to keep using after the prototype phase.
+        </p>
+        <p>
+          Outside code, photography gives the site its second texture: composition, contrast, and a
+          sharper eye for the details people remember.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-pad" id="work" aria-labelledby="work-title">
+      <div class="section-heading">
+        <p class="eyebrow">Featured projects</p>
+        <h2 id="work-title">Built around local systems, better workflows, and learning in public.</h2>
+      </div>
+
+      <div class="project-deck" data-project-deck>
+        <div class="project-tabs" role="tablist" aria-label="Project cards">
+          {
+            projects.map((project, index) => (
+              <button
+                class={`project-tab ${index === 0 ? "is-active" : ""}`}
+                type="button"
+                role="tab"
+                id={`project-tab-${index}`}
+                aria-selected={index === 0 ? "true" : "false"}
+                aria-controls={`project-panel-${index}`}
+                tabindex={index === 0 ? "0" : "-1"}
+                data-project-tab
+                data-project-index={index}
+              >
+                <span class="project-tab-count">{String(index + 1).padStart(2, "0")}</span>
+                <span class="project-tab-copy">
+                  <strong>{project.title}</strong>
+                  <small>{project.eyebrow}</small>
+                </span>
+                <span class="project-tab-year">{project.year}</span>
+              </button>
+            ))
+          }
+        </div>
+
+        <div class="project-stage" data-project-stage style={`--deck-progress: ${projects.length > 1 ? "0%" : "100%"}`}>
+          <div class="deck-progress" data-deck-progress>
+            <p class="deck-status" data-deck-status aria-live="polite">
+              Project 01 of {String(projects.length).padStart(2, "0")}
+            </p>
+            <div class="deck-progress-rail" aria-hidden="true">
+              <span></span>
+            </div>
+          </div>
+
+          {
+            projects.map((project, index) => (
+              <article
+                class={`project-card project-deck-card project-card-${index + 1} ${index === 0 ? "is-active" : ""}`}
+                id={`project-panel-${index}`}
+                role="tabpanel"
+                aria-labelledby={`project-tab-${index}`}
+                aria-hidden={index === 0 ? "false" : "true"}
+                inert={index !== 0}
+                data-spotlight-card
+                data-project-panel
+                data-project-index={index}
+              >
+                <div class="project-card-top">
+                  <p class="eyebrow">{project.eyebrow}</p>
+                  <span>{project.status}</span>
+                </div>
+                <div class="project-card-body">
+                  <div class="project-copy">
+                    <h3>{project.title}</h3>
+                    <p>{project.summary}</p>
+                    <ul class="tag-list" aria-label={`${project.title} technology stack`}>
+                      {project.stack.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                    <ul class="highlight-list">
+                      {project.highlights.map((item) => (
+                        <li>{item}</li>
+                      ))}
+                    </ul>
+                    <footer class="project-card-footer">
+                      <span>{project.year}</span>
+                      {
+                        project.repo && (
+                          <a class="inline-link" href={project.repo} target="_blank" rel="noreferrer">
+                            Open repository
+                          </a>
+                        )
+                      }
+                    </footer>
+                  </div>
+
+                  <aside
+                    class={`project-artifact artifact-${project.artifact.type}`}
+                    aria-label={`${project.title} visual artifact`}
+                    data-project-artifact
+                    data-artifact={project.artifact.type}
+                  >
+                    <span class="artifact-label">{project.artifact.label}</span>
+                    <div class="artifact-body" aria-hidden="true">
+                      {project.artifact.lines.map((line, lineIndex) => (
+                        <span class="artifact-line" style={`--line-index: ${lineIndex}`}>{line}</span>
+                      ))}
+                    </div>
+                  </aside>
+                </div>
+              </article>
+            ))
+          }
+          <p class="deck-hint">Hover tabs, click, or use arrow keys. Page scroll stays normal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-pad toolkit" id="tools" aria-labelledby="tools-title">
+      <div>
+        <p class="eyebrow">Stack</p>
+        <h2 id="tools-title">Tools I keep reaching for.</h2>
+      </div>
+      <div class="tool-cloud">
+        <span>Python</span>
+        <span>FastAPI</span>
+        <span>TypeScript</span>
+        <span>Astro</span>
+        <span>SQLite</span>
+        <span>Docker</span>
+        <span>Java</span>
+        <span>Jupyter</span>
+        <span>GitHub</span>
+        <span>CLI design</span>
+        <span>Local AI</span>
+        <span>Data visualization</span>
+      </div>
+    </section>
+
+    <section class="section-pad gallery-preview" id="gallery" aria-labelledby="gallery-title">
+      <div class="section-heading">
+        <p class="eyebrow">Photography</p>
+        <h2 id="gallery-title">A supporting layer of composition, contrast, and atmosphere.</h2>
+        <p>
+          The gallery stays lightweight: selected images, cleaner navigation, and enough visual texture
+          to show the creative side without distracting from the engineering work.
+        </p>
+      </div>
+      <div class="film-strip">
+        {
+          previewPhotos.map((photo) => (
+            <figure>
+              <img src={photo.src} alt={photo.alt} loading="lazy" />
+              <figcaption>{photo.label}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <a class="button button-secondary" href="/gallery/">Open full gallery</a>
+    </section>
+
+    <section class="section-pad contact-panel" id="contact" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">Have a project, role, or weird technical idea?</h2>
+      </div>
+      <div class="contact-actions">
+        <a class="button button-primary" href="mailto:lovantog@gmail.com">lovantog@gmail.com</a>
+        <a class="button button-secondary" href="https://github.com/Lando-00" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Designed and built by Lovanto George.</p>
+    <a href="#top" aria-label="Back to top">Back to top</a>
+  </footer>
+
+  <script is:inline>
+    const spotlightCards = document.querySelectorAll("[data-spotlight-card]");
+
+    for (const card of spotlightCards) {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--spotlight-x", `${event.clientX - rect.left}px`);
+        card.style.setProperty("--spotlight-y", `${event.clientY - rect.top}px`);
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.removeProperty("--spotlight-x");
+        card.style.removeProperty("--spotlight-y");
+      });
+    }
+
+    const projectDeck = document.querySelector("[data-project-deck]");
+
+    if (projectDeck) {
+      const tabs = Array.from(projectDeck.querySelectorAll("[data-project-tab]"));
+      const panels = Array.from(projectDeck.querySelectorAll("[data-project-panel]"));
+      const status = projectDeck.querySelector("[data-deck-status]");
+      const stage = projectDeck.querySelector("[data-project-stage]");
+      let activeIndex = 0;
+
+      const activateProject = (index, shouldFocus = false) => {
+        activeIndex = (index + tabs.length) % tabs.length;
+        const progress = tabs.length > 1 ? (activeIndex / (tabs.length - 1)) * 100 : 100;
+
+        tabs.forEach((tab, tabIndex) => {
+          const isActive = tabIndex === activeIndex;
+          tab.classList.toggle("is-active", isActive);
+          tab.setAttribute("aria-selected", String(isActive));
+          tab.setAttribute("tabindex", isActive ? "0" : "-1");
+        });
+
+        panels.forEach((panel, panelIndex) => {
+          const isActive = panelIndex === activeIndex;
+          panel.classList.toggle("is-active", isActive);
+          panel.setAttribute("aria-hidden", String(!isActive));
+          panel.inert = !isActive;
+        });
+
+        stage?.style.setProperty("--deck-progress", `${progress}%`);
+
+        if (status) {
+          status.textContent = `Project ${String(activeIndex + 1).padStart(2, "0")} of ${String(tabs.length).padStart(2, "0")}`;
+        }
+
+        if (shouldFocus) {
+          tabs[activeIndex].focus();
+        }
+      };
+
+      tabs.forEach((tab, index) => {
+        tab.addEventListener("pointerenter", () => activateProject(index));
+        tab.addEventListener("focus", () => activateProject(index));
+        tab.addEventListener("click", () => activateProject(index));
+        tab.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+            event.preventDefault();
+            activateProject(activeIndex + 1, true);
+          }
+
+          if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+            event.preventDefault();
+            activateProject(activeIndex - 1, true);
+          }
+
+          if (event.key === "Home") {
+            event.preventDefault();
+            activateProject(0, true);
+          }
+
+          if (event.key === "End") {
+            event.preventDefault();
+            activateProject(tabs.length - 1, true);
+          }
+        });
+      });
+    }
+  </script>
+</BaseLayout>

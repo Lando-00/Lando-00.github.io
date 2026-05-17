@@ -1,0 +1,17 @@
+{
+  "name": "lando-00.github.io",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "validate": "node scripts/validate-site.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "astro": "^5.15.4",
+    "typescript": "^5.9.3"
+  }
+}
