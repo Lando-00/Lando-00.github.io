@@ -32,7 +32,7 @@ const checks = [
   })),
   {
     name: "homepage includes current positioning",
-    pass: () => read(join(dist, "index.html")).includes("developer who turns rough ideas into useful systems")
+    pass: () => read(join(dist, "index.html")).includes("I build practical software that makes life easier")
   },
   {
     name: "homepage includes featured projects",
